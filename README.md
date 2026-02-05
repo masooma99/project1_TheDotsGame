@@ -1,6 +1,6 @@
-# Masooma's Project
+# The Dots Game
 
-## Date: 2/2/2026
+## Date: 5/2/2026
 
 ### By Masooma Ebrahim
 
@@ -8,36 +8,36 @@
 ***
 
 ### ***Description***
-#### in this project you'll see different for loop example
+#### The Dots Game" (commonly known as Dots and Boxes) is a simple, turn-based pencil-and-paper strategy game for two or more players and the goal is to connect dots on a grid to form more 1x1 boxes than your opponent.
 ***
 
 
-### ***Technologies Used***
-* if statement
-* loops
-  * for loop
-  * foreach
-* get data from the array
+### ***How to Play***
+* The setup is already made for you when you open the website.
+* Turns
+  * Players take turns drawing a single horizontal or vertical line to connect two adjacent, unconnected dots.
+* Capturing Boxes
+  * If you draw a line that completes the fourth side of a 1x1 box, you fill in that box (usually with your initial) and immediately get to take another turn.
+* Winning
+  * The game ends when all possible lines are drawn. The player with the most initials (boxes) on the board wins.
 ***
 
 
-### ***Step # 1***
+### ***Key Strategies***
+* Avoid Finishing Three Sides
+  * Try not to draw a line that leaves three sides of a box open, as your opponent will immediately take it.
+* Create Chains
+  * When possible, force your opponent into a position where they must complete one box, allowing you to take all the other boxes in that "chain".
 
-##### open the course chanel in github to see the steps.[here](https://github.com/SEB-12-Bahrain).
+##### Open the link to start the game.[here](URL).
 
 ***
 
-##### The code did work
-![the code did work](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.PDlm3trgAkY6pGPcbRt4SQHaEK%26pid%3DApi&f=1)
-
-##### The code did NOT work
-![the code did NOT work](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.buntINTHFLyDODyMKXNYcgHaEK%26pid%3DApi&f=1)
-***
 
 ### ***Future Updates***
 
-- [x] ~~for loop example part#1~~
-- [x] ~~for loop example part#2~~
-- [x] ~~for loop example part#3~~
-- [x] ~~Do the HW~~
+- [x] ~~creating the main files that I'll need to use~~
+- [] Add comments to organize your code
+- [] MVP vertion of the game is created
+- [] commit the last changes
 ***
