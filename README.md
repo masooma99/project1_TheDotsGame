@@ -37,7 +37,7 @@
 ### ***Future Updates***
 
 - [x] ~~creating the main files that I'll need to use~~
-- [] Add comments to organize your code
-- [] MVP vertion of the game is created
-- [] commit the last changes
+-  Add comments to organize your code
+-  MVP vertion of the game is created
+- Commit the last changes
 ***
