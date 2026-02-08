@@ -22,3 +22,8 @@ section {
   width: 20px;
   border-radius: 50%;
 }
+
+.dot :hover {
+  /*it is not working*/
+  animation: shine 0.8s ease forwards;
+}
