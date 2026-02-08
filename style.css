@@ -11,6 +11,8 @@ section {
   align-content: space-around;
   justify-content: space-around;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  border: 1rem;
+  color: black;
 }
 
 .dot {
