@@ -3,16 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./script.js"></script>
+    <script defer src="./script.js"></script>
     <link rel="stylesheet" href="./style.css" />
     <title>The Dots Game</title>
   </head>
-  <!-- This file will have the entry page where the users will have a button that will take them to the game  -->
+  <body>
+    <!-- This file will have the entry page where the users will have a button that will take them to the game  -->
 
-  <!--image of the dots game-->
+    <!--image of the dots game-->
 
-  <!--2 input of type text to get players name-->
+    <!--2 input of type text to get players name-->
+    Row:<input type="number" id="row" min="2" max="10" /> Column:<input
+      type="number"
+      id="column"
+      min="2"
+      max="10"
+    />
+    <button id="numOfDots" value="Start The Game" onclick="init()">
+      Click me to start the game
+    </button>
+    <section id="div-section"></section>
 
-  <!--button that will navigate user to the game page-->
-  <body></body>
+    <!--button that will navigate user to the game page-->
+  </body>
 </html>
