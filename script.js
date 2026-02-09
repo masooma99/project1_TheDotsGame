@@ -71,23 +71,33 @@ const init = () => {
   //number of lines -= row.value bec ._._. when having 3 dots I only need 2 lines
   // for the .vertical_line & horizontal_line
 
-  for (let i = 0; i < row.value; i++) {
+  for (let i = 0; i < Number(row.value) - 1; i++) {
     for (let i = 0; i < Number(column.value) - 1; i++) {
       const newDivElement = document.createElement("div")
       newDivElement.innerHTML = `<div class='horizontal_line lines' id=${i}></div>`
       section.appendChild(newDivElement)
     }
-    const newDivElement = document.createElement("div")
-    newDivElement.innerHTML = `<div class='vertical_line lines' id=${i}></div>`
-    section.appendChild(newDivElement)
+    for (let i = 0; i < column.value; i++) {
+      const newDivElement = document.createElement("div")
+      newDivElement.innerHTML = `<div class='vertical_line lines' id=${i}></div>`
+      section.appendChild(newDivElement)
+    }
   }
 
   lines = document.querySelectorAll(".lines")
   dots = document.querySelectorAll(".dot")
-  console.log(dots)
+  // console.log(lines.length - 1) --> correct
+
   dots.forEach((dot) => {
     dot.addEventListener("click", () => clickDot(dot))
   })
+
+  // create one last horizontal_line
+  const newDivElement = document.createElement("div")
+  newDivElement.innerHTML = `<div class='horizontal_line lines' id=${lines.length - 1}></div>`
+  section.appendChild(newDivElement)
+  lines = document.querySelectorAll(".lines")
+  console.log(lines.length - 1)
   //update the css file
 
   let numOfColumn = ""
@@ -146,4 +156,3 @@ const clickDot = (dot) => {
 }
 
 button.addEventListener("click", init)
-console.log(dots)
