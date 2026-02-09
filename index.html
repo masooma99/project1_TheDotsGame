@@ -10,20 +10,39 @@
   <body>
     <!-- This file will have the entry page where the users will have a button that will take them to the game  -->
 
-    <!--image of the dots game-->
-
-    <!--2 input of type text to get players name-->
-    Row:<input type="number" id="row" min="2" max="10" /> Column:<input
-      type="number"
-      id="column"
-      min="2"
-      max="10"
-    />
-    <button id="numOfDots" value="Start The Game" onclick="init()">
-      Click me to start the game
-    </button>
+    <div id="userInput">
+      <!--image of the dots game-->
+      <img src="./dots.png" alt="dots" /><br />
+      <!--2 input of type text to get players name-->
+      Palyer 1 name:<input
+        type="text"
+        id="player1Name"
+        placeholder="(Optional)"
+      /><br />
+      Player 2 name:<input
+        type="text"
+        id="player2Name"
+        placeholder="Optional"
+      /><br />
+      Row:<input type="number" id="row" min="2" max="10" />Column:<input
+        type="number"
+        id="column"
+        min="2"
+        max="10"
+      /><br />
+      <!--button that will navigate user to the game page-->
+      <!--<button id="numOfDots" value="Start The Game" onclick="init()">-->
+      <button id="numOfDots" value="Start The Game">
+        Click me to start the game
+      </button>
+    </div>
+    <div id="playerDetails">
+      <h3 id="player1">Player 1:</h3>
+      <h4 id="player1Points"></h4>
+      <h3 id="player2">Player 2:</h3>
+      <h4 id="player2Points"></h4>
+      <button id="backTo0">Reselect dots</button>
+    </div>
     <section id="div-section"></section>
-
-    <!--button that will navigate user to the game page-->
   </body>
 </html>

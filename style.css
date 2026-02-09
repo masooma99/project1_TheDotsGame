@@ -1,5 +1,8 @@
 * {
   background-color: antiquewhite;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
@@ -10,9 +13,13 @@ section {
   display: grid;
   align-content: space-around;
   justify-content: space-around;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   border: 1rem;
   color: black;
+}
+
+#playerDetails {
+  display: none;
 }
 
 .dot {
@@ -23,7 +30,26 @@ section {
   border-radius: 50%;
 }
 
+.horizontal_line {
+  background-color: black;
+  width: 20px;
+  height: 2px;
+}
+
+.vertical_line {
+  background-color: black;
+  width: 2px;
+  height: 20px;
+}
+
 .dot :hover {
-  /*it is not working*/
+  /*it is not working
+  add onClick change the css dot style to shine or have light around it
+  */
   animation: shine 0.8s ease forwards;
+}
+
+#userInput {
+  /*justify-content: center;
+  align-items: center;*/
 }
