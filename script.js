@@ -47,11 +47,11 @@ const init = (r = row.value, c = column.value) => {
   }
 
   //update the css file
-  let numOfRow = ""
-  for (let i = 0; i < row.value; i++) {
-    numOfRow = numOfRow + "1fr "
+  let numOfColumn = ""
+  for (let i = 0; i < column.value; i++) {
+    numOfColumn = numOfColumn + "1fr "
   }
-  section.style.gridTemplateColumns = numOfRow
+  section.style.gridTemplateColumns = numOfColumn
 }
 
 //a function that will see if the selected 2 dots are able to connect or not, if it can connect it will draw a line between the 2 dots and if the box is closed the player points will increase
