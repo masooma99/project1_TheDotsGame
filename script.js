@@ -8,6 +8,7 @@ const player2 = document.querySelector("#player2")
 const playerDetails = document.querySelector("#playerDetails")
 let dots = document.querySelectorAll(".dot")
 let lines
+let displayLine
 const reselectDots = document.querySelector("#backTo0")
 
 let dotsConnection = {}
@@ -17,6 +18,8 @@ let secondDot
 const row = document.querySelector("#row")
 const column = document.querySelector("#column")
 const button = document.querySelector("#numOfDots")
+const verticalLine = document.querySelectorAll(".vertical_line")
+const horizontalLine = document.querySelectorAll(".horizontal_line")
 const usersDots = []
 
 //(player1 points & player2 points) ---->which will increase by 1 each time player close a box
@@ -24,42 +27,48 @@ const usersDots = []
 //functions
 
 const init = () => {
-  let length = row.value * column.value
+  if (
+    row.value >= 0 &&
+    row.value <= 10 &&
+    column.value >= 0 &&
+    column.value <= 8
+  ) {
+    let length = row.value * column.value
 
-  //for (let i = 0; i < 4; i++) {
-  for (let i = 0; i < length; i++) {
-    dotsConnection = {
-      i: {
-        line1: {
-          position: [i, i + 1],
-          lined: false,
+    //for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < length; i++) {
+      dotsConnection = {
+        i: {
+          line1: {
+            position: [i, i + 1],
+            lined: false,
+          },
+          line2: {
+            position: [i, i + row.value],
+            lined: false,
+          },
+          line3: {
+            position: [i + 1, i + row.value + 1],
+            lined: false,
+          },
+          line4: {
+            position: [i + row.value, i + row.value + 1],
+            lined: false,
+          },
         },
-        line2: {
-          position: [i, i + row.value],
-          lined: false,
-        },
-        line3: {
-          position: [i + 1, i + row.value + 1],
-          lined: false,
-        },
-        line4: {
-          position: [i + row.value, i + row.value + 1],
-          lined: false,
-        },
-      },
+      }
+      //console.log(dotsConnection.i.line1.position[0])
+    } //end of for loop
+    userInputDiv.style.display = "none"
+    if (player1Name.value > "") {
+      player1.textContent = player1Name.value + ":"
     }
-    //console.log(dotsConnection.i.line1.position[0])
-  } //end of for loop
-  userInputDiv.style.display = "none"
-  if (player1Name.value > "") {
-    player1.textContent = player1Name.value + ":"
-  }
-  if (player2Name.value > "") {
-    player2.textContent = player2Name.value + ":"
-  }
-  playerDetails.style.display = "block"
-  section.innerHTML = ""
-  /*
+    if (player2Name.value > "") {
+      player2.textContent = player2Name.value + ":"
+    }
+    playerDetails.style.display = "block"
+    section.innerHTML = ""
+    /*
   for (let i = 0; i < length; i++) {
     //for loop to create the dots
     const newDiv = document.createElement("div")
@@ -84,62 +93,59 @@ const init = () => {
     }
   }
 */
-  for (let i = 0; i < Number(row.value); i++) {
-    // if (i % 2 === 1 || i === 0) {
-    // starting with dot
-    const newDiv = document.createElement("div")
-    newDiv.innerHTML = `<div class='dot'></div>`
-    section.appendChild(newDiv)
-    for (let j = 0; j < Number(column.value) - 1; j++) {
-      const newDivElement = document.createElement("div")
-      newDivElement.innerHTML = `<div class='horizontal_line lines'></div>`
-      section.appendChild(newDivElement)
-      // horizontal_line then dot
+    let divIndex = 0
+    for (let i = 0; i < Number(row.value); i++) {
+      // if (i % 2 === 1 || i === 0) {
+      // starting with dot
       const newDiv = document.createElement("div")
       newDiv.innerHTML = `<div class='dot'></div>`
       section.appendChild(newDiv)
-    }
-    if (i < Number(row.value) - 1) {
-      for (let j = 0; j < Number(column.value); j++) {
-        // if (j % 2 === 1 || j === 0) {
+      for (let j = 0; j < Number(column.value) - 1; j++) {
         const newDivElement = document.createElement("div")
-        newDivElement.innerHTML = `<div class='vertical_line lines'></div>`
+        newDivElement.innerHTML = `<div class='horizontal_line lines' id="${divIndex}"></div>`
+        divIndex++
         section.appendChild(newDivElement)
-        if (j < Number(column.value - 1)) {
-          const newEmptyDivElement = document.createElement("div")
-          newEmptyDivElement.innerHTML = `<div></div>`
-          section.appendChild(newEmptyDivElement)
+        // horizontal_line then dot
+        const newDiv = document.createElement("div")
+        newDiv.innerHTML = `<div class='dot'></div>`
+        section.appendChild(newDiv)
+      }
+      if (i < Number(row.value) - 1) {
+        for (let j = 0; j < Number(column.value); j++) {
+          // if (j % 2 === 1 || j === 0) {
+          const newDivElement = document.createElement("div")
+          newDivElement.innerHTML = `<div class='vertical_line lines'></div>`
+          section.appendChild(newDivElement)
+          if (j < Number(column.value - 1)) {
+            const newEmptyDivElement = document.createElement("div")
+            newEmptyDivElement.innerHTML = `<div></div>`
+            section.appendChild(newEmptyDivElement)
+          }
         }
       }
+      if (i === Number(row.value) - 1) {
+        const newEmptyDivElement = document.createElement("div")
+        newEmptyDivElement.innerHTML = `<div></div>`
+        section.appendChild(newEmptyDivElement)
+      }
     }
-    if (i === Number(row.value) - 1) {
-      const newEmptyDivElement = document.createElement("div")
-      newEmptyDivElement.innerHTML = `<div></div>`
-      section.appendChild(newEmptyDivElement)
+    lines = document.querySelectorAll(".lines")
+    dots = document.querySelectorAll(".dot")
+    // verticalLine = document.querySelectorAll(".vertical_line")
+    // horizontalLine = document.querySelectorAll(".horizontal_line")
+    // console.log(lines.length - 1) --> correct
+    // verticalLine.style.height = "50px"
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => clickDot(dot))
+    })
+    let numOfColumn = ""
+    for (let i = 0; i < Number(column.value) + Number(column.value) - 1; i++) {
+      numOfColumn = numOfColumn + "1fr "
     }
+    section.style.gridTemplateColumns = numOfColumn
+    //window.location.href = "./main.html"
   }
-  lines = document.querySelectorAll(".lines")
-  dots = document.querySelectorAll(".dot")
-  // console.log(lines.length - 1) --> correct
-
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => clickDot(dot))
-  })
-
-  // create one last horizontal_line
-  // const newDivElement = document.createElement("div")
-  // newDivElement.innerHTML = `<div class='horizontal_line lines' id=${lines.length - 1}></div>`
-  // section.appendChild(newDivElement)
-  // lines = document.querySelectorAll(".lines")
-  // console.log(lines.length - 1)
-  //update the css file
-
-  let numOfColumn = ""
-  for (let i = 0; i < Number(column.value) + Number(column.value) - 1; i++) {
-    numOfColumn = numOfColumn + "1fr "
-  }
-  section.style.gridTemplateColumns = numOfColumn
-  //window.location.href = "./main.html"
 }
 //a function that will see if the selected 2 dots are able to connect or not, if it can connect it will draw a line between the 2 dots and if the box is closed the player points will increase
 
@@ -147,24 +153,42 @@ const connectingDots = (B, C) => {
   //function#2
   console.log("Function Entered")
   console.log(C)
-  let poss
+  let count = Number(column.value)
+  let currentRow = 1
   let length = row.value * column.value
+  let vLineIndex = 0
   for (let i = 0; i < length; i++) {
+    count--
+    if (count === 0) {
+      currentRow++
+      count = Number(column.value)
+      // console.log(`lines index: ${i - 2 - (currentRow - 2)}`)
+      // console.log(`i : ${i} & the current horizontal line ${currentRow}`)
+    }
     if (B === dots[i]) {
       //B --> array.index
       console.log(`B index: ${i}`)
-      console.log(length)
       if (C === dots[i + 1]) {
         console.log(`C at index: ${i + 1}`)
+        console.log(`index: ${i} , length : ${length}`)
+        console.log(`lines index: ${i - (currentRow - 1)}`)
+        //div line --> display:block
+        displayLine = document.getElementById(i - (currentRow - 1))
+        console.log(displayLine) // correct, it does work
+        displayLine.style.display = "block"
+        return
       } else if (C === dots[i + Number(column.value)]) {
         console.log(`C at index: ${i + Number(column.value)}`)
+        return
       } else {
         console.log("these 2 dote can NOT be connected to each other")
       } // print not valid or does not do anything
     } else if (C === dots[i]) {
       if (B === dots[i + 1]) {
-        console.log(`you clicked on the dot with the index: ${index}`)
+        console.log(`C first, at dot index: ${i}`)
+        return
       } else if (B === dots[i + Number(column.value)]) {
+        console.log(`B is bellow C`)
       } else {
       } // print not valid or does not do anything
     } else {
