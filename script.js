@@ -59,7 +59,7 @@ const init = () => {
   }
   playerDetails.style.display = "block"
   section.innerHTML = ""
-
+  /*
   for (let i = 0; i < length; i++) {
     //for loop to create the dots
     const newDiv = document.createElement("div")
@@ -83,7 +83,41 @@ const init = () => {
       section.appendChild(newDivElement)
     }
   }
-
+*/
+  for (let i = 0; i < Number(row.value); i++) {
+    // if (i % 2 === 1 || i === 0) {
+    // starting with dot
+    const newDiv = document.createElement("div")
+    newDiv.innerHTML = `<div class='dot'></div>`
+    section.appendChild(newDiv)
+    for (let j = 0; j < Number(column.value) - 1; j++) {
+      const newDivElement = document.createElement("div")
+      newDivElement.innerHTML = `<div class='horizontal_line lines'></div>`
+      section.appendChild(newDivElement)
+      // horizontal_line then dot
+      const newDiv = document.createElement("div")
+      newDiv.innerHTML = `<div class='dot'></div>`
+      section.appendChild(newDiv)
+    }
+    if (i < Number(row.value) - 1) {
+      for (let j = 0; j < Number(column.value); j++) {
+        // if (j % 2 === 1 || j === 0) {
+        const newDivElement = document.createElement("div")
+        newDivElement.innerHTML = `<div class='vertical_line lines'></div>`
+        section.appendChild(newDivElement)
+        if (j < Number(column.value - 1)) {
+          const newEmptyDivElement = document.createElement("div")
+          newEmptyDivElement.innerHTML = `<div></div>`
+          section.appendChild(newEmptyDivElement)
+        }
+      }
+    }
+    if (i === Number(row.value) - 1) {
+      const newEmptyDivElement = document.createElement("div")
+      newEmptyDivElement.innerHTML = `<div></div>`
+      section.appendChild(newEmptyDivElement)
+    }
+  }
   lines = document.querySelectorAll(".lines")
   dots = document.querySelectorAll(".dot")
   // console.log(lines.length - 1) --> correct
@@ -93,15 +127,15 @@ const init = () => {
   })
 
   // create one last horizontal_line
-  const newDivElement = document.createElement("div")
-  newDivElement.innerHTML = `<div class='horizontal_line lines' id=${lines.length - 1}></div>`
-  section.appendChild(newDivElement)
-  lines = document.querySelectorAll(".lines")
-  console.log(lines.length - 1)
+  // const newDivElement = document.createElement("div")
+  // newDivElement.innerHTML = `<div class='horizontal_line lines' id=${lines.length - 1}></div>`
+  // section.appendChild(newDivElement)
+  // lines = document.querySelectorAll(".lines")
+  // console.log(lines.length - 1)
   //update the css file
 
   let numOfColumn = ""
-  for (let i = 0; i < column.value; i++) {
+  for (let i = 0; i < Number(column.value) + Number(column.value) - 1; i++) {
     numOfColumn = numOfColumn + "1fr "
   }
   section.style.gridTemplateColumns = numOfColumn

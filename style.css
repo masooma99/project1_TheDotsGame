@@ -60,3 +60,7 @@ section {
   /*justify-content: center;
   align-items: center;*/
 }
+
+div {
+  background-color: white;
+}
