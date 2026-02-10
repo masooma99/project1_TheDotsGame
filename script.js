@@ -72,14 +72,14 @@ const init = () => {
   // for the .vertical_line & horizontal_line
 
   for (let i = 0; i < Number(row.value) - 1; i++) {
-    for (let i = 0; i < Number(column.value) - 1; i++) {
+    for (let j = 0; j < Number(column.value) - 1; j++) {
       const newDivElement = document.createElement("div")
-      newDivElement.innerHTML = `<div class='horizontal_line lines' id=${i}></div>`
+      newDivElement.innerHTML = `<div class='horizontal_line lines'></div>`
       section.appendChild(newDivElement)
     }
-    for (let i = 0; i < column.value; i++) {
+    for (let j = 0; j < column.value; j++) {
       const newDivElement = document.createElement("div")
-      newDivElement.innerHTML = `<div class='vertical_line lines' id=${i}></div>`
+      newDivElement.innerHTML = `<div class='vertical_line lines'></div>`
       section.appendChild(newDivElement)
     }
   }

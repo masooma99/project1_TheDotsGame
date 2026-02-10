@@ -9,6 +9,7 @@ button {
 }
 
 section {
+  position: relative;
   background-color: white;
   display: grid;
   align-content: space-around;
@@ -19,9 +20,15 @@ section {
 }
 
 #playerDetails {
+  /*step1 */
   display: none;
 }
-
+.dot,
+.lines {
+  /* step2 */
+  /* step 1,&2 to put the lines on top of the dots */
+  position: absolute;
+}
 .dot {
   background-color: black;
   margin: 20px;
