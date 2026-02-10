@@ -68,32 +68,9 @@ const init = () => {
     }
     playerDetails.style.display = "block"
     section.innerHTML = ""
-    /*
-  for (let i = 0; i < length; i++) {
-    //for loop to create the dots
-    const newDiv = document.createElement("div")
-    newDiv.innerHTML = `<div class='dot' id=${i}></div>`
-    section.appendChild(newDiv)
-  }
 
-  //for creating the lines
-  //number of lines -= row.value bec ._._. when having 3 dots I only need 2 lines
-  // for the .vertical_line & horizontal_line
-
-  for (let i = 0; i < Number(row.value) - 1; i++) {
-    for (let j = 0; j < Number(column.value) - 1; j++) {
-      const newDivElement = document.createElement("div")
-      newDivElement.innerHTML = `<div class='horizontal_line lines'></div>`
-      section.appendChild(newDivElement)
-    }
-    for (let j = 0; j < column.value; j++) {
-      const newDivElement = document.createElement("div")
-      newDivElement.innerHTML = `<div class='vertical_line lines'></div>`
-      section.appendChild(newDivElement)
-    }
-  }
-*/
     let divIndex = 0
+    let vdivIndex = 0
     for (let i = 0; i < Number(row.value); i++) {
       // if (i % 2 === 1 || i === 0) {
       // starting with dot
@@ -114,7 +91,8 @@ const init = () => {
         for (let j = 0; j < Number(column.value); j++) {
           // if (j % 2 === 1 || j === 0) {
           const newDivElement = document.createElement("div")
-          newDivElement.innerHTML = `<div class='vertical_line lines'></div>`
+          newDivElement.innerHTML = `<div class='vertical_line lines' id="v${vdivIndex}"></div>`
+          vdivIndex++
           section.appendChild(newDivElement)
           if (j < Number(column.value - 1)) {
             const newEmptyDivElement = document.createElement("div")
@@ -166,29 +144,42 @@ const connectingDots = (B, C) => {
       // console.log(`i : ${i} & the current horizontal line ${currentRow}`)
     }
     if (B === dots[i]) {
-      //B --> array.index
-      console.log(`B index: ${i}`)
       if (C === dots[i + 1]) {
-        console.log(`C at index: ${i + 1}`)
-        console.log(`index: ${i} , length : ${length}`)
-        console.log(`lines index: ${i - (currentRow - 1)}`)
-        //div line --> display:block
-        displayLine = document.getElementById(i - (currentRow - 1))
-        console.log(displayLine) // correct, it does work
-        displayLine.style.display = "block"
-        return
+        if (dotsConnection.i.line1.lined === false) {
+          //div line --> display:block
+          displayLine = document.getElementById(i - (currentRow - 1))
+          displayLine.style.display = "block"
+          dotsConnection.i.line1.lined = true
+          return
+        }
       } else if (C === dots[i + Number(column.value)]) {
-        console.log(`C at index: ${i + Number(column.value)}`)
-        return
+        if (dotsConnection.i.line2.lined === false) {
+          //div line --> display:block
+          displayLine = document.getElementById("v" + i)
+          displayLine.style.display = "block"
+          dotsConnection.i.line2.lined = true
+          return
+        }
       } else {
         console.log("these 2 dote can NOT be connected to each other")
       } // print not valid or does not do anything
     } else if (C === dots[i]) {
       if (B === dots[i + 1]) {
-        console.log(`C first, at dot index: ${i}`)
-        return
+        if (dotsConnection.i.line1.lined === false) {
+          //div line --> display:block
+          displayLine = document.getElementById(i - (currentRow - 1))
+          displayLine.style.display = "block"
+          dotsConnection.i.line1.lined = true
+          return
+        }
       } else if (B === dots[i + Number(column.value)]) {
-        console.log(`B is bellow C`)
+        if (dotsConnection.i.line2.lined === false) {
+          //div line --> display:block
+          displayLine = document.getElementById("v" + i)
+          displayLine.style.display = "block"
+          dotsConnection.i.line2.lined = true
+          return
+        }
       } else {
       } // print not valid or does not do anything
     } else {
