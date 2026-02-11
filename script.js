@@ -1,4 +1,13 @@
 //caches variable
+let P1Points = 0
+let P2Points = 0
+const POnePoints = document.querySelector("#player1Points")
+const PTwoPoints = document.querySelector("#player2Points")
+let turn = 1
+let player2Turn = true
+//let winner
+//let tie
+
 const userInputDiv = document.querySelector("#userInput")
 const section = document.querySelector("#div-section")
 const player1Name = document.querySelector("#player1Name")
@@ -28,9 +37,9 @@ const usersDots = []
 
 const init = () => {
   if (
-    row.value >= 0 &&
+    row.value >= 3 &&
     row.value <= 10 &&
-    column.value >= 0 &&
+    column.value >= 3 &&
     column.value <= 8
   ) {
     let length = row.value * column.value
@@ -45,15 +54,15 @@ const init = () => {
           },
           line2: {
             position: [i, i + row.value],
-            lined: false,
+            lined: true,
           },
           line3: {
             position: [i + 1, i + row.value + 1],
-            lined: false,
+            lined: true,
           },
           line4: {
             position: [i + row.value, i + row.value + 1],
-            lined: false,
+            lined: true,
           },
         },
       }
@@ -66,7 +75,8 @@ const init = () => {
     if (player2Name.value > "") {
       player2.textContent = player2Name.value + ":"
     }
-    playerDetails.style.display = "block"
+    playerDetails.style.display = "grid"
+    playerDetails.style.gridTemplateColumns = "1fr 6fr"
     section.innerHTML = ""
 
     let divIndex = 0
@@ -109,9 +119,6 @@ const init = () => {
     }
     lines = document.querySelectorAll(".lines")
     dots = document.querySelectorAll(".dot")
-    // verticalLine = document.querySelectorAll(".vertical_line")
-    // horizontalLine = document.querySelectorAll(".horizontal_line")
-    // console.log(lines.length - 1) --> correct
     // verticalLine.style.height = "50px"
 
     dots.forEach((dot) => {
@@ -129,8 +136,6 @@ const init = () => {
 
 const connectingDots = (B, C) => {
   //function#2
-  console.log("Function Entered")
-  console.log(C)
   let count = Number(column.value)
   let currentRow = 1
   let length = row.value * column.value
@@ -150,6 +155,32 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById(i - (currentRow - 1))
           displayLine.style.display = "block"
           dotsConnection.i.line1.lined = true
+          //console.log(P1Points)
+          if (
+            dotsConnection.i.line2.lined === true &&
+            dotsConnection.i.line3.lined === true &&
+            dotsConnection.i.line4.lined === true
+          ) {
+            //console.log("box is close now") --> does work
+            if (turn === 1) {
+              //will only add point but will note change the turn
+              P1Points++
+              POnePoints.innerHTML = P1Points
+            } else if (turn === 2) {
+              P2Points++
+              PTwoPoints.innerHTML = P2Points
+            }
+          } else {
+            if (turn === 1) {
+              //if the box is not closing then we just change turn
+              turn = 2
+            } else if (turn === 2) {
+              turn = 1
+            }
+          }
+          usersDots.pop()
+          usersDots.pop()
+          clickDot()
           return
         }
       } else if (C === dots[i + Number(column.value)]) {
@@ -158,6 +189,13 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById("v" + i)
           displayLine.style.display = "block"
           dotsConnection.i.line2.lined = true
+          if (
+            dotsConnection.i.line1.lined === true &&
+            dotsConnection.i.line3.lined === true &&
+            dotsConnection.i.line4.lined === true
+          ) {
+            console.log("box is close now")
+          }
           return
         }
       } else {
@@ -170,6 +208,13 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById(i - (currentRow - 1))
           displayLine.style.display = "block"
           dotsConnection.i.line1.lined = true
+          if (
+            dotsConnection.i.line2.lined === true &&
+            dotsConnection.i.line3.lined === true &&
+            dotsConnection.i.line4.lined === true
+          ) {
+            console.log("box is close now")
+          }
           return
         }
       } else if (B === dots[i + Number(column.value)]) {
@@ -178,6 +223,13 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById("v" + i)
           displayLine.style.display = "block"
           dotsConnection.i.line2.lined = true
+          if (
+            dotsConnection.i.line1.lined === true &&
+            dotsConnection.i.line3.lined === true &&
+            dotsConnection.i.line4.lined === true
+          ) {
+            console.log("box is close now")
+          }
           return
         }
       } else {
@@ -185,10 +237,6 @@ const connectingDots = (B, C) => {
     } else {
     } // print not valid or does not do anything
   }
-}
-
-function handleClick(event) {
-  console.log("Element was clicked!", event)
 }
 
 const clickDot = (dot) => {

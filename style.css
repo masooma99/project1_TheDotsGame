@@ -7,6 +7,10 @@
 
 button {
 }
+h3,
+h4 {
+  background-color: white;
+}
 
 section {
   position: relative;
@@ -22,6 +26,8 @@ section {
 #playerDetails {
   /*step1 */
   display: none;
+  padding: 0;
+  background-color: white;
 }
 .dot,
 .lines {
