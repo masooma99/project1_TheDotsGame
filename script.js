@@ -62,7 +62,7 @@ const init = () => {
         },
         line4: {
           position: [i + Number(column.value), i + Number(column.value) + 1],
-          lined: true,
+          lined: false,
         },
       }
       // console.log(dotsConnection[i].line1.lined)
@@ -150,18 +150,23 @@ const connectingDots = (B, C) => {
     if (B === dots[i]) {
       // console.log("if B dot entered")
       if (C === dots[i + 1]) {
-        console.log(`lined before changing: ${dotsConnection[i].line1.lined}`)
+        // console.log(`lined before changing: ${dotsConnection[i].line1.lined}`)
         if (dotsConnection[i].line1.lined === false) {
           //div line --> display:block
           displayLine = document.getElementById(i - (currentRow - 1))
           displayLine.style.display = "block"
           dotsConnection[i].line1.lined = true
-          if (i > column.value) {
-            dotsConnection[i - Number(column.value)].line3.lined = true
+          console.log(dotsConnection[i].line1.lined)
+          console.log(dotsConnection[i].line2.lined)
+          console.log(dotsConnection[i].line3.lined)
+          console.log(dotsConnection[i].line4.lined)
+          console.log(column.value)
+          if (i >= column.value) {
+            dotsConnection[i - Number(column.value)].line4.lined = true
             if (
               dotsConnection[i - Number(column.value)].line1.lined === true &&
               dotsConnection[i - Number(column.value)].line2.lined === true &&
-              dotsConnection[i - Number(column.value)].line4.lined === true
+              dotsConnection[i - Number(column.value)].line3.lined === true
             ) {
               if (turn === 1) {
                 //will only add point but will note change the turn
@@ -182,8 +187,8 @@ const connectingDots = (B, C) => {
           }
           if (
             dotsConnection[i].line2.lined === true &&
-            dotsConnection[i + Number(column.value)].line1.lined === true &&
-            dotsConnection[i + Number(column.value) + 1].line1.lined === true
+            dotsConnection[i].line3.lined === true &&
+            dotsConnection[i].line4.lined === true
           ) {
             //console.log("box is close now") --> does work
             if (turn === 1) {
@@ -207,10 +212,11 @@ const connectingDots = (B, C) => {
           return
         }
       } else if (C === dots[i + Number(column.value)]) {
-        console.log(`lined before changing: ${dotsConnection[i].line2.lined}`)
+        // console.log(`lined before changing: ${dotsConnection[i].line2.lined}`)
         if (dotsConnection[i].line2.lined === false) {
           //div line --> display:block
           displayLine = document.getElementById("v" + i)
+          console.log(displayLine)
           displayLine.style.display = "block"
           dotsConnection[i].line2.lined = true
           //I'll need to update the previous box too
@@ -238,14 +244,14 @@ const connectingDots = (B, C) => {
               }
             }
           }
-          console.log(`lined after changing: ${dotsConnection[i].line2.lined}`)
+          // console.log(`lined after changing: ${dotsConnection[i].line2.lined}`)
           if (
             dotsConnection[i].line1.lined === true &&
             dotsConnection[i + Number(column.value)].line1.lined === true &&
             dotsConnection[i + Number(column.value) + 1].line1.lined === true
           ) {
             if (turn === 1) {
-              //will only add point but will note change the turn
+              //will only add point but will not change the turn
               P1Points++
               POnePoints.innerHTML = P1Points
             } else if (turn === 2) {
@@ -265,6 +271,9 @@ const connectingDots = (B, C) => {
           return
         }
       }
+      usersDots.pop()
+      usersDots.pop()
+      return
     } else if (C === dots[i]) {
       if (B === dots[i + 1]) {
         if (dotsConnection[i].line1.lined === false) {
@@ -329,8 +338,12 @@ const connectingDots = (B, C) => {
           return
         }
       }
-    } else {
-    } // print not valid or does not do anything
+    }
+    //  else {
+    //   usersDots.pop()
+    //   usersDots.pop()
+    //   return
+    // }
   }
 }
 
