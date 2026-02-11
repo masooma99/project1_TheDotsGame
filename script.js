@@ -29,7 +29,7 @@ const column = document.querySelector("#column")
 const button = document.querySelector("#numOfDots")
 const verticalLine = document.querySelectorAll(".vertical_line")
 const horizontalLine = document.querySelectorAll(".horizontal_line")
-const usersDots = []
+let usersDots = []
 
 //(player1 points & player2 points) ---->which will increase by 1 each time player close a box
 
@@ -42,10 +42,10 @@ const init = () => {
     column.value >= 3 &&
     column.value <= 8
   ) {
-    let length = row.value * column.value
-
+    let length = Number(row.value) * Number(column.value)
+    console.log(length)
     //for (let i = 0; i < 4; i++) {
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length - 1; i++) {
       dotsConnection = {
         i: {
           line1: {
@@ -54,20 +54,24 @@ const init = () => {
           },
           line2: {
             position: [i, i + row.value],
-            lined: true,
+            lined: false,
           },
           line3: {
             position: [i + 1, i + row.value + 1],
-            lined: true,
+            lined: false,
           },
           line4: {
             position: [i + row.value, i + row.value + 1],
-            lined: true,
+            lined: false,
           },
         },
       }
-      //console.log(dotsConnection.i.line1.position[0])
+      console.log(dotsConnection.i.line1.lined)
     } //end of for loop
+    // for (let i = 0; i < dotsConnection.length; i++) {
+    //   console.log(dotsConnection.i.line1.position[0])
+    //   console.log(dotsConnection.i.line1.lined)
+    // }
     userInputDiv.style.display = "none"
     if (player1Name.value > "") {
       player1.textContent = player1Name.value + ":"
@@ -120,10 +124,10 @@ const init = () => {
     lines = document.querySelectorAll(".lines")
     dots = document.querySelectorAll(".dot")
     // verticalLine.style.height = "50px"
-
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => clickDot(dot))
-    })
+    aEListener()
+    // dots.forEach((dot) => {
+    //   dot.addEventListener("click", () => clickDot(dot))
+    // })
     let numOfColumn = ""
     for (let i = 0; i < Number(column.value) + Number(column.value) - 1; i++) {
       numOfColumn = numOfColumn + "1fr "
@@ -136,6 +140,7 @@ const init = () => {
 
 const connectingDots = (B, C) => {
   //function#2
+  console.log("function entered")
   let count = Number(column.value)
   let currentRow = 1
   let length = row.value * column.value
@@ -145,17 +150,19 @@ const connectingDots = (B, C) => {
     if (count === 0) {
       currentRow++
       count = Number(column.value)
-      // console.log(`lines index: ${i - 2 - (currentRow - 2)}`)
-      // console.log(`i : ${i} & the current horizontal line ${currentRow}`)
     }
     if (B === dots[i]) {
+      console.log("if B dot entered")
       if (C === dots[i + 1]) {
+        console.log(`lined before changing: ${dotsConnection.i.line1.lined}`)
+        let m = 1
         if (dotsConnection.i.line1.lined === false) {
           //div line --> display:block
           displayLine = document.getElementById(i - (currentRow - 1))
+          // console.log(displayLine)
           displayLine.style.display = "block"
           dotsConnection.i.line1.lined = true
-          //console.log(P1Points)
+          console.log(`lined after changing: ${dotsConnection.i.line1.lined}`)
           if (
             dotsConnection.i.line2.lined === true &&
             dotsConnection.i.line3.lined === true &&
@@ -177,10 +184,9 @@ const connectingDots = (B, C) => {
             } else if (turn === 2) {
               turn = 1
             }
-          }
+          } //end of else
           usersDots.pop()
           usersDots.pop()
-          clickDot()
           return
         }
       } else if (C === dots[i + Number(column.value)]) {
@@ -237,19 +243,31 @@ const connectingDots = (B, C) => {
     } else {
     } // print not valid or does not do anything
   }
+  // usersDots.pop()
+  // usersDots.pop()
 }
 
 const clickDot = (dot) => {
   //usersDots --> array of 2 for 2 dots
+  //console.log("usersDots array: ", usersDots)
   if (usersDots.length < 2) {
     usersDots.push(dot)
-    console.log(usersDots.length)
-    if (usersDots.length === 2) {
-      connectingDots(usersDots[0], usersDots[1])
-    }
-  } else {
+    // console.log(dot) // print it 2 times...
+  }
+  if (usersDots.length === 2) {
+    // console.log(dot)
+    connectingDots(usersDots[0], usersDots[1])
+  }
+  if (usersDots.length > 2) {
     console.log("can not select more then 2")
   } //backTo0
 }
 
+// button.addEventListener("click", init)
+
+const aEListener = () => {
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => clickDot(dot))
+  })
+}
 button.addEventListener("click", init)
