@@ -156,11 +156,11 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById(i - (currentRow - 1))
           displayLine.style.display = "block"
           dotsConnection[i].line1.lined = true
-          console.log(dotsConnection[i].line1.lined)
-          console.log(dotsConnection[i].line2.lined)
-          console.log(dotsConnection[i].line3.lined)
-          console.log(dotsConnection[i].line4.lined)
-          console.log(column.value)
+          // console.log(dotsConnection[i].line1.lined)
+          // console.log(dotsConnection[i].line2.lined)
+          // console.log(dotsConnection[i].line3.lined)
+          // console.log(dotsConnection[i].line4.lined)
+          // console.log(column.value)
           if (i >= column.value) {
             dotsConnection[i - Number(column.value)].line4.lined = true
             if (
