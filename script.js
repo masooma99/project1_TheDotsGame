@@ -3,6 +3,7 @@ let P1Points = 0
 let P2Points = 0
 const POnePoints = document.querySelector("#player1Points")
 const PTwoPoints = document.querySelector("#player2Points")
+const playersTurn = document.querySelector("#turn")
 let turn = 1
 let player2Turn = true
 //let winner
@@ -156,11 +157,6 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById(i - (currentRow - 1))
           displayLine.style.display = "block"
           dotsConnection[i].line1.lined = true
-          // console.log(dotsConnection[i].line1.lined)
-          // console.log(dotsConnection[i].line2.lined)
-          // console.log(dotsConnection[i].line3.lined)
-          // console.log(dotsConnection[i].line4.lined)
-          // console.log(column.value)
           if (i >= column.value) {
             dotsConnection[i - Number(column.value)].line4.lined = true
             if (
@@ -168,21 +164,9 @@ const connectingDots = (B, C) => {
               dotsConnection[i - Number(column.value)].line2.lined === true &&
               dotsConnection[i - Number(column.value)].line3.lined === true
             ) {
-              if (turn === 1) {
-                //will only add point but will note change the turn
-                P1Points++
-                POnePoints.innerHTML = P1Points
-              } else if (turn === 2) {
-                P2Points++
-                PTwoPoints.innerHTML = P2Points
-              }
+              points()
             } else {
-              if (turn === 1) {
-                //if the box is not closing then we just change turn
-                turn = 2
-              } else if (turn === 2) {
-                turn = 1
-              }
+              turns()
             } //end of else
           }
           if (
@@ -191,21 +175,9 @@ const connectingDots = (B, C) => {
             dotsConnection[i].line4.lined === true
           ) {
             //console.log("box is close now") --> does work
-            if (turn === 1) {
-              //will only add point but will note change the turn
-              P1Points++
-              POnePoints.innerHTML = P1Points
-            } else if (turn === 2) {
-              P2Points++
-              PTwoPoints.innerHTML = P2Points
-            }
+            points()
           } else {
-            if (turn === 1) {
-              //if the box is not closing then we just change turn
-              turn = 2
-            } else if (turn === 2) {
-              turn = 1
-            }
+            turns()
           } //end of else
           usersDots.pop()
           usersDots.pop()
@@ -219,6 +191,10 @@ const connectingDots = (B, C) => {
           console.log(displayLine)
           displayLine.style.display = "block"
           dotsConnection[i].line2.lined = true
+          console.log(dotsConnection[i].line1.lined)
+          console.log(dotsConnection[i].line2.lined)
+          console.log(dotsConnection[i].line3.lined)
+          console.log(dotsConnection[i].line4.lined)
           //I'll need to update the previous box too
           if (i > 0) {
             dotsConnection[i - 1].line3.lined = true
@@ -227,53 +203,29 @@ const connectingDots = (B, C) => {
               dotsConnection[i - 1].line2.lined === true &&
               dotsConnection[i - 1].line4.lined === true
             ) {
-              if (turn === 1) {
-                //will only add point but will note change the turn
-                P1Points++
-                POnePoints.innerHTML = P1Points
-              } else if (turn === 2) {
-                P2Points++
-                PTwoPoints.innerHTML = P2Points
-              }
+              points()
             } else {
-              if (turn === 1) {
-                //if the box is not closing then we just change turn
-                turn = 2
-              } else if (turn === 2) {
-                turn = 1
-              }
+              turns()
             }
           }
           // console.log(`lined after changing: ${dotsConnection[i].line2.lined}`)
           if (
             dotsConnection[i].line1.lined === true &&
-            dotsConnection[i + Number(column.value)].line1.lined === true &&
-            dotsConnection[i + Number(column.value) + 1].line1.lined === true
+            dotsConnection[i].line3.lined === true &&
+            dotsConnection[i].line4.lined === true
           ) {
-            if (turn === 1) {
-              //will only add point but will not change the turn
-              P1Points++
-              POnePoints.innerHTML = P1Points
-            } else if (turn === 2) {
-              P2Points++
-              PTwoPoints.innerHTML = P2Points
-            }
+            points()
           } else {
-            if (turn === 1) {
-              //if the box is not closing then we just change turn
-              turn = 2
-            } else if (turn === 2) {
-              turn = 1
-            }
+            turns()
           } //end of else
           usersDots.pop()
           usersDots.pop()
           return
         }
       }
-      usersDots.pop()
-      usersDots.pop()
-      return
+      // usersDots.pop()
+      // usersDots.pop()
+      // return
     } else if (C === dots[i]) {
       if (B === dots[i + 1]) {
         if (dotsConnection[i].line1.lined === false) {
@@ -281,26 +233,26 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById(i - (currentRow - 1))
           displayLine.style.display = "block"
           dotsConnection[i].line1.lined = true
+          if (i >= column.value) {
+            dotsConnection[i - Number(column.value)].line4.lined = true
+            if (
+              dotsConnection[i - Number(column.value)].line1.lined === true &&
+              dotsConnection[i - Number(column.value)].line2.lined === true &&
+              dotsConnection[i - Number(column.value)].line3.lined === true
+            ) {
+              points()
+            } else {
+              turns()
+            } //end of else
+          }
           if (
             dotsConnection[i].line2.lined === true &&
-            dotsConnection[i + Number(column.value)].line1.lined === true &&
-            dotsConnection[i + Number(column.value) + 1].line1.lined === true
+            dotsConnection[i].line1.lined === true &&
+            dotsConnection[i].line1.lined === true
           ) {
-            if (turn === 1) {
-              //will only add point but will note change the turn
-              P1Points++
-              POnePoints.innerHTML = P1Points
-            } else if (turn === 2) {
-              P2Points++
-              PTwoPoints.innerHTML = P2Points
-            }
+            points()
           } else {
-            if (turn === 1) {
-              //if the box is not closing then we just change turn
-              turn = 2
-            } else if (turn === 2) {
-              turn = 1
-            }
+            turns()
           } //end of else
           usersDots.pop()
           usersDots.pop()
@@ -312,26 +264,26 @@ const connectingDots = (B, C) => {
           displayLine = document.getElementById("v" + i)
           displayLine.style.display = "block"
           dotsConnection[i].line2.lined = true
+          if (i > 0) {
+            dotsConnection[i - 1].line3.lined = true
+            if (
+              dotsConnection[i - 1].line1.lined === true &&
+              dotsConnection[i - 1].line2.lined === true &&
+              dotsConnection[i - 1].line4.lined === true
+            ) {
+              points()
+            } else {
+              turns()
+            }
+          }
           if (
             dotsConnection[i].line1.lined === true &&
-            dotsConnection[i + Number(column.value)].line1.lined === true &&
-            dotsConnection[i + Number(column.value) + 1].line1.lined === true
+            dotsConnection[i].line3.lined === true &&
+            dotsConnection[i].line4.lined === true
           ) {
-            if (turn === 1) {
-              //will only add point but will note change the turn
-              P1Points++
-              POnePoints.innerHTML = P1Points
-            } else if (turn === 2) {
-              P2Points++
-              PTwoPoints.innerHTML = P2Points
-            }
+            points()
           } else {
-            if (turn === 1) {
-              //if the box is not closing then we just change turn
-              turn = 2
-            } else if (turn === 2) {
-              turn = 1
-            }
+            turns()
           } //end of else
           usersDots.pop()
           usersDots.pop()
@@ -344,6 +296,30 @@ const connectingDots = (B, C) => {
     //   usersDots.pop()
     //   return
     // }
+  }
+}
+
+const turns = () => {
+  if (turn === 1) {
+    //if the box is not closing then we just change turn
+    turn = 2
+    playersTurn.innerHTML = `player ${turn}`
+  } else if (turn === 2) {
+    turn = 1
+    playersTurn.innerHTML = `player ${turn}`
+  }
+}
+
+const points = () => {
+  if (turn === 1) {
+    //will only add point but will note change the turn
+    P1Points++
+    POnePoints.innerHTML = P1Points
+    playersTurn.innerHTML = `player ${turn}`
+  } else if (turn === 2) {
+    P2Points++
+    PTwoPoints.innerHTML = P2Points
+    playersTurn.innerHTML = `player ${turn}`
   }
 }
 
