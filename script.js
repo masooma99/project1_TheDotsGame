@@ -6,9 +6,6 @@ const PTwoPoints = document.querySelector("#player2Points")
 const playersTurn = document.querySelector("#turn")
 let turn = 1
 let player2Turn = true
-//let winner
-//let tie
-
 const userInputDiv = document.querySelector("#userInput")
 const section = document.querySelector("#div-section")
 const player1Name = document.querySelector("#player1Name")
@@ -32,10 +29,6 @@ const verticalLine = document.querySelectorAll(".vertical_line")
 const horizontalLine = document.querySelectorAll(".horizontal_line")
 let usersDots = []
 
-//(player1 points & player2 points) ---->which will increase by 1 each time player close a box
-
-//functions
-
 const init = () => {
   if (
     row.value >= 3 &&
@@ -44,9 +37,6 @@ const init = () => {
     column.value <= 8
   ) {
     let length = Number(row.value) * Number(column.value)
-    // console.log(length)
-    //for (let i = 0; i < 4; i++) {
-    //the first loop I write was overwriting the array
     for (let i = 0; i < length - 1; i++) {
       dotsConnection[i] = {
         line1: {
@@ -122,15 +112,12 @@ const init = () => {
     dots = document.querySelectorAll(".dot")
     // verticalLine.style.height = "50px"
     aEListener()
-    // dots.forEach((dot) => {
-    //   dot.addEventListener("click", () => clickDot(dot))
-    // })
     let numOfColumn = ""
     for (let i = 0; i < Number(column.value) + Number(column.value) - 1; i++) {
       numOfColumn = numOfColumn + "1fr "
     }
     section.style.gridTemplateColumns = numOfColumn
-    //window.location.href = "./main.html"
+    //window.location.href = "./main.html" ---> to move to another page
   }
 }
 //a function that will see if the selected 2 dots are able to connect or not, if it can connect it will draw a line between the 2 dots and if the box is closed the player points will increase
@@ -154,10 +141,13 @@ const connectingDots = (B, C) => {
         // console.log(`lined before changing: ${dotsConnection[i].line1.lined}`)
         if (dotsConnection[i].line1.lined === false) {
           //div line --> display:block
-          displayLine = document.getElementById(i - (currentRow - 1))
+          displayLine = document.getElementById(i - (currentRow - 1)) //this is correct bec when clicking on the 2 dots the line does show
+          // console.log(i - (currentRow - 1)) //=0 if B was the dot at index 0
           displayLine.style.display = "block"
           dotsConnection[i].line1.lined = true
+          //up to here everything is correct
           if (i >= column.value) {
+            //this part work correctly too
             dotsConnection[i - Number(column.value)].line4.lined = true
             if (
               dotsConnection[i - Number(column.value)].line1.lined === true &&
@@ -166,6 +156,7 @@ const connectingDots = (B, C) => {
             ) {
               points()
             } else {
+              console.log(turn)
               turns()
             } //end of else
           }
@@ -177,6 +168,7 @@ const connectingDots = (B, C) => {
             //console.log("box is close now") --> does work
             points()
           } else {
+            console.log(turn)
             turns()
           } //end of else
           usersDots.pop()
@@ -188,13 +180,13 @@ const connectingDots = (B, C) => {
         if (dotsConnection[i].line2.lined === false) {
           //div line --> display:block
           displayLine = document.getElementById("v" + i)
-          console.log(displayLine)
+          // console.log(displayLine)
           displayLine.style.display = "block"
           dotsConnection[i].line2.lined = true
-          console.log(dotsConnection[i].line1.lined)
-          console.log(dotsConnection[i].line2.lined)
-          console.log(dotsConnection[i].line3.lined)
-          console.log(dotsConnection[i].line4.lined)
+          // console.log(dotsConnection[i].line1.lined)
+          // console.log(dotsConnection[i].line2.lined)
+          // console.log(dotsConnection[i].line3.lined)
+          // console.log(dotsConnection[i].line4.lined)
           //I'll need to update the previous box too
           if (i > 0) {
             dotsConnection[i - 1].line3.lined = true
@@ -223,9 +215,6 @@ const connectingDots = (B, C) => {
           return
         }
       }
-      // usersDots.pop()
-      // usersDots.pop()
-      // return
     } else if (C === dots[i]) {
       if (B === dots[i + 1]) {
         if (dotsConnection[i].line1.lined === false) {
@@ -291,35 +280,42 @@ const connectingDots = (B, C) => {
         }
       }
     }
-    //  else {
-    //   usersDots.pop()
-    //   usersDots.pop()
-    //   return
-    // }
+  }
+  console.log(turn)
+}
+
+const points = () => {
+  //this part is tested and it works correctly
+  if (turn === 1) {
+    //will only add point but will note change the turn
+    console.log("before changing turn")
+    console.log(turn)
+    P1Points++
+    POnePoints.innerHTML = P1Points
+    playersTurn.innerHTML = `player ${turn}`
+    console.log("after changing points")
+    console.log(turn)
+  } else if (turn === 2) {
+    console.log("before changing points")
+    console.log(turn)
+    P2Points++
+    PTwoPoints.innerHTML = P2Points
+    playersTurn.innerHTML = `player ${turn}`
+    console.log("after changing turn")
+    console.log(turn)
   }
 }
 
 const turns = () => {
+  //this part does not work correctly
   if (turn === 1) {
     //if the box is not closing then we just change turn
-    turn = 2
-    playersTurn.innerHTML = `player ${turn}`
-  } else if (turn === 2) {
-    turn = 1
-    playersTurn.innerHTML = `player ${turn}`
+    turn++
+    playersTurn.innerHTML = `player ${turn} turn`
   }
-}
-
-const points = () => {
-  if (turn === 1) {
-    //will only add point but will note change the turn
-    P1Points++
-    POnePoints.innerHTML = P1Points
-    playersTurn.innerHTML = `player ${turn}`
-  } else if (turn === 2) {
-    P2Points++
-    PTwoPoints.innerHTML = P2Points
-    playersTurn.innerHTML = `player ${turn}`
+  if (turn === 2) {
+    turn--
+    playersTurn.innerHTML = `player ${turn} turn`
   }
 }
 
